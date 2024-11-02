@@ -1,0 +1,17 @@
+The_Indexbook_Manual/Indexbook_cover.md
+The_Indexbook_Manual/Why_Indexbook.md
+The_Indexbook_Manual/Indexbook_parts.md
+The_Indexbook_Manual/How_to_Indexbook.md
+The_Indexbook_Manual/project_todo.md
+2024_Journal/cover.md
+2024_Journal/2024_05_10.md
+2024_Journal/2024_05_09.md
+2024_Journal/2024_05_07.md
+2024_Journal/2024_05_05.md
+2024_Journal/2024_05_04.md
+2024_Journal/2024_05_03.md
+2024_Journal/2024_04_29.md
+2024_Journal/2024_04_24.md
+2024_Journal/2024_04_21.md
+2024_Journal/2024_04_07.md
+2024_Journal/2024_04_04.md

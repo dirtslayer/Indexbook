@@ -1,0 +1,105 @@
+<!doctype html>
+<!--
+
+Welcome to index the serverless, buildless book publishing 
+system.
+
+Copy this file into your server root.
+
+Create a list of your md files in index.md.
+
+Serve and enjoy.
+
+Files named cover.md will be used as a cover for your books.
+
+You can have several books, each in thier own folder, but the 
+page order for both books is in the top-level index.md, and both 
+table of contents / index will be displayed together.
+
+If you want separate pages for separate books you can 
+copy the index.html into each and serve each separately.
+
+
+-->
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Index</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.7.0/github-markdown-dark.css" integrity="sha512-oswfiqgllpzhGBmf/JfCByYofsPfLsKS1FJH6lvHyxAOH5T2Dk6kqgFLH/OfbvBDbaSVKJ1Y2b6uJPlv42lVHQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    .outerthumb {
+      width: 200px;
+      height: 300px;
+    }
+    .thumb {
+  transform: scale(0.5);
+      transform-origin: top left;
+  width: 400px;
+  height: 600px;
+  background-color: ghostwhite;
+      color: black;
+}
+  
+  </style>
+  
+</head>
+<body style="color: #f0f6fc;
+  background-color: #0d1117; margin: 2em">
+<a href='index.md'  >index</a>
+<div id="Index" class="markdown-body" ><h1><i>Welcome to Index</i></h1><p>The CMSless CMS</p></div>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked-base-url"></script>
+<script>
+
+
+function preventDefaultLinks () {
+  const myLinks = document.querySelectorAll("a");
+  for (const link of myLinks) {
+  link.onclick = (e) => {
+    e.preventDefault();
+    const linkData = e.target.getAttribute("href");
+    getData(linkData);
+  };
+}
+}
+
+preventDefaultLinks();
+    
+function getData(pageId) {
+  console.log(pageId);
+  if ( pageId === 'index.md' ) {
+  const myRequest = new Request(`${pageId}`);
+  fetch(myRequest)
+    .then((response) => response.text())
+    .then((text) => {
+      const myArticle = document.querySelector("#Index");
+      let links = "";
+      const arr = text.split(/\r?\n/);
+      arr.forEach((l) => {
+        links += "- [" + l.slice(0, -3).replaceAll("_"," ").split("/").pop() + "](" + l + ")"
+        links += "<div class=\"outerthumb\"><div class=\"thumb\">" + l + "</div> </div>\n";
+      });
+      marked.use(markedBaseUrl.baseUrl("/"));
+      myArticle.innerHTML = marked.parse(links);      
+      preventDefaultLinks();
+    });
+  }
+  else {
+    const myRequest = new Request(`${pageId}`);
+    fetch(myRequest)
+      .then((response) => response.text())
+      .then((text) => {
+        const myArticle = document.querySelector("#Index");
+        // we need to rewrite all urls because we are serving from parent folder 
+        // (single page app inject)
+        const base = "." + pageId.split("/").slice(0,-1).join("/") + "/";
+        marked.use(markedBaseUrl.baseUrl(base));
+        myArticle.innerHTML = marked.parse(text);
+      });
+  }
+}
+
+</script>
+</body>
+</html>
