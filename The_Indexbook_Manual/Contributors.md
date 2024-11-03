@@ -1,7 +1,5 @@
-![cover](./media/cover.jpg)
-
-# Indexbook - Publishing Kit
-Create beautiful books using markdown.
+Indexbook Contributors
+======================
 
 - author: Darrell Dupas 
 - email: dirtslayer@gmail.com

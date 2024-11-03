@@ -1,4 +1,4 @@
-# How to use Index
+# How to use Indexbook
 
 1. Copy index.html into your document root
 2. Create index.md with a list of markdown files in the order you want them

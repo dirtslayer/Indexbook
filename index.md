@@ -1,4 +1,5 @@
 The_Indexbook_Manual/Indexbook_cover.md
+The_Indexbook_Manual/Contributors.md
 The_Indexbook_Manual/Why_Indexbook.md
 The_Indexbook_Manual/Indexbook_parts.md
 The_Indexbook_Manual/How_to_Indexbook.md
