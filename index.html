@@ -46,7 +46,11 @@ dirtslayer.github.io/Indexbook?f=The_Indexbook_Manual
 <body style="color: #f0f6fc;
   background-color: #0d1117; margin: 2em">
   
-<a    href='index.md'  > index </a>
+<a  id="indexmd"  href='index.md'  > index </a>
+<a  id="prev"  href=''  > prev </a>
+<a  id="next"  href=''  > next </a>
+<a  id="raw"  href=''  > raw </a>
+  
   
 <div id="Index" class="markdown-body" ><h1><i>Welcome to Indexbook</i></h1></div>
 
@@ -71,12 +75,7 @@ preventDefaultLinks();
 
       
 async function getPage(f) {
-  const myRequest = new Request(`${f}`);
-    fetch(myRequest)
-      .then((response) => response.text())
-      .then((text) => {
-        return text
-      });
+  
 }
   
 async function getData(f) {
@@ -87,15 +86,39 @@ async function getData(f) {
     .then( async (text) =>  {
       const myArticle = document.querySelector("#Index");
       let links = "";
+      let url = "";
       const arr = text.split(/\r?\n/);
+      let thepage = "async hell";
+      let my = null;
+      
       arr.forEach( async (l) =>  {
-        links += "- [" + l.slice(0, -3).replaceAll("_"," ").split("/").pop() + "](" + l + ")\n"
-        const thepage = await getPage(l);
-       // links += "<div class=\"outerthumb\"><div class=\"thumb\">" + l + "</div> </div>\n";
+        
+        
+        //thepage = await getPage(l);
+
+      url = './' + l;
+      my = new Request(url);
+      fetch(my)
+        .then((response) => response.text())
+        .then((text) => {
+          links += "<li><a href='./" + l + "'>" +  l.slice(0, -3).replaceAll("_"," ").split("/").pop();
+          links += "</a><div class=\"outerthumb\"><div class=\"thumb\">";
+
+          const base = "./" + l.split("/").slice(0,-1).join("/") + "/";
+          marked.use(markedBaseUrl.baseUrl(base));
+          links += marked.parse(text);
+          links += "</div> </div></li>\n";
+          
+      }).then(()=>{
+        myArticle.innerHTML = links;      
+        preventDefaultLinks();  
       });
-      marked.use(markedBaseUrl.baseUrl("/"));
-      myArticle.innerHTML = marked.parse(links);      
-      preventDefaultLinks();
+        
+        
+        
+      });
+      //
+      
     });
   }
   else {
