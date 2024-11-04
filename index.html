@@ -52,32 +52,35 @@ ul.flow-layout {
   flex-wrap: wrap;
   flex-direction: row;
   list-style-type: none;
-  margin: 0px 0px 30px 30px;
+  gap: 5em;
+  background-color: cyan;
+
+  transform: scale(0.5,0.5);
+  transform-origin: top left;
+
+  width : 150%;
 }
 
 li.flow-layout {
   display: flex;
   align-items: left;
   justify-content: top;
-  height: 300px;
+  
   flex-direction: column;
-  background-color: #f0f0f0;
-  border: 0px solid #000;
-  padding : 10 10 0 0;
+  background-color: grey;
+
+  width: 425px;
+  height: 600px;
+
 }
     
-.outerthumb {
-  width: 200px;
-  height: 300px;
-  border: 2px solid #000;
-}
-
 .thumb {
-  transform: scale(0.5);
-  transform-origin: top left;
-  width: 400px;
+  
+  width: 425px;
   height: 600px;
   background-color: ghostwhite; // ghostwhiter mention
+  border: 2px solid #000;
+  overflow: hidden;
 }
 
 img[src*="#200"] {  // hack to pass image width from md using bookmarks
@@ -86,12 +89,13 @@ img[src*="#200"] {  // hack to pass image width from md using bookmarks
 
   </style>
 </head>
-<body ><a  id="indexmd"  href='index.md'  > index </a>
+<body ><a  href='index_include.md'  > index </a>
 <a  id="prev"  href=''  > prev </a>
-<a  id="next"  href=''  > next </a>
+<a  id="next"  href=''  > next  </a>
 <a  id="raw"  href=''  > raw </a>
 <div  class="markdown-body" ><h3><i>Indexbook</i></h3>
-<ul id="Index" class="flow-layout"></ul></div>
+<div id="Index"></div>
+</div>
 
   
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -102,64 +106,74 @@ img[src*="#200"] {  // hack to pass image width from md using bookmarks
 function preventDefaultLinks () {
   const myLinks = document.querySelectorAll("a");
   for (const link of myLinks) {
-  link.onclick = (e) => {
-    e.preventDefault();
-    const linkData = e.target.getAttribute("href");
-    getData(linkData);
-  };
-}
+    link.onclick = (e) => {
+      e.preventDefault();
+      handleaclick(
+        e.target.getAttribute("href")
+      );
+    };
+  }
 }
 
 preventDefaultLinks();
 
-      
-async function getPage(f) {
-  
-}
-  
-async function getData(f) {
-  if ( f === 'index.md' ) {
-  const myRequest = new Request(`${f}`);
-  fetch(myRequest)
-    .then( async (response) => response.text())
-    .then( async (text) =>  {
-      const myArticle = document.querySelector("#Index");
-      let links = "";
-      let url = "";
-      const arr = text.split(/\r?\n/);
-      let thepage = "async hell";
-      let my = null;
-      
-      arr.forEach( async (l) =>  {
-        
-        
-        //thepage = await getPage(l);
-
-      url = './' + l;
-      my = new Request(url);
-      fetch(my)
-        .then((response) => response.text())
-        .then((text) => {
-          links += "<li class='flow-layout'><a href='./" + l + "'>" +  l.slice(0, -3).replaceAll("_"," ").split("/").pop();
-          links += "</a><div class=\"outerthumb\"><div class=\"thumb\">";
-
-          const base = "./" + l.split("/").slice(0,-1).join("/") + "/";
-          marked.use(markedBaseUrl.baseUrl('/'));
-          marked.use(markedBaseUrl.baseUrl(base));
-          links += marked.parse(text);
-          links += "</div></div></li>";
-          
-      }).then(()=>{
-        myArticle.innerHTML = links;      
-        preventDefaultLinks();  
-      });
-        
-        
-        
-      });
-      //
-      
+async function handleaclick(f) {
+  if ( f === 'index_include.md' ) {
+    const include_file = await fetch(f).then((response) => response.text());
+    const include_lines = include_file.split(/\r?\n/);
+    const include_prom = [];
+    include_lines.forEach((line) => {
+       include_prom.push(fetch(line));
     });
+    const pages = [];
+    await Promise.all(include_prom).then( async (r) => {
+        r.forEach( async (resp) => {
+          pages.push( resp.text());
+        });        
+    });
+    await Promise.all(pages).then((p)=>{
+      let i = 0;
+      let indexul = "<ul class=\"flow-layout\">"; 
+      p.forEach( (pt) => { 
+        indexul += "<li class=\"flow-layout\" >";
+        // console.log('\n******\n' + include_lines[i] + '\n=======\n' + pt);
+        indexul += "<a href=\"" + include_lines[i] + "\">" + include_lines[i] + "</a>";
+        indexul += "<div class=\"thumb\">" + pt + "</div>";
+        indexul += "</li>";
+        i++;
+      });  
+      indexul += "</ul>";
+      const indexdiv = document.querySelector("#Index");
+      indexdiv.innerHTML = indexul;      
+      preventDefaultLinks();      
+    });
+        
+  }
+}
+
+
+/*    
+.then((response) => response.text())
+.then((text) => {
+links += "<li class='flow-layout'><a href='./" + l + "'>" +  l.slice(0, -3).replaceAll("_"," ").split("/").pop();
+links += "</a><div class=\"outerthumb\"><div class=\"thumb\">";
+
+const base = "./" + l.split("/").slice(0,-1).join("/") + "/";
+marked.use(markedBaseUrl.baseUrl('/'));
+marked.use(markedBaseUrl.baseUrl(base));
+links += marked.parse(text);
+links += "</div></div></li>";
+
+}).then(()=>{
+  
+});
+
+
+
+});
+
+
+});
   }
   else {
     const myRequest = new Request(`${f}`);
@@ -167,13 +181,6 @@ async function getData(f) {
       .then((response) => response.text())
       .then((text) => {
         const myArticle = document.querySelector("#Index");
-        // we need to rewrite all urls because we are serving from parent folder 
-        // (single page app inject)
-        // so we grab the rel path for base from each link
-
-
-        // ie a file inside Book folder that uses ./media/image.jpg
-        // will be rewritten to ./Book/media/image.jpg
         marked.use(markedBaseUrl.baseUrl('/'));
         const base = "." + f.split("/").slice(0,-1).join("/") + "/";
         marked.use(markedBaseUrl.baseUrl(base));
@@ -181,7 +188,7 @@ async function getData(f) {
       });
   }
 }
-
+*/
 </script>
 </body>
 </html>
