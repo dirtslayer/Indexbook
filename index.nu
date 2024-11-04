@@ -14,7 +14,22 @@ let temp_conf = ( ^mktemp )
 # save config to temp file
 $"server.port = 8080
 index-file.names = \( "index.html" \)
-server.document-root = "(pwd)" " | save -a $temp_conf
-
+server.document-root = \"(pwd)\" 
+mimetype.assign = \( 
+\".html\" => \"text/html;charset=utf-8\", 
+\".ico\" => \"image/x-icon\",
+\".md\" => \"text/plain;charset=utf-8\",
+\".jpg\" => \"image/jpeg\",
+\".png\" => \"image/png\",
+\) 
+"
+| save -a $temp_conf
+print ( open $temp_conf)
 # start lighttpd 
 ^lighttpd -D -f $temp_conf
+
+# mimetype.assign   = ( ".png"  => "image/png",
+#                       ".jpg"  => "image/jpeg",
+#                       ".jpeg" => "image/jpeg",
+#                       ".html" => "text/html",
+#                       ".txt"  => "text/plain;charset=utf-8" )

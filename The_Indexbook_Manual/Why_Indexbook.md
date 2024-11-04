@@ -1,6 +1,9 @@
-## Why CMS's are a pain
-- May lock pages in a table row inside a docker making versioning hard
-- Often require more than a static provider
-- A lot of code
-- Made for more multi-user
-- Not flexible 
+
+# Requirements
+- should be able to get out of the way of tools:
+      - editors like ghostwriter or not vi,
+      - graphics programs like krita,
+  
+- able to version control
+- able to search easily
+- less is more

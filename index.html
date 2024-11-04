@@ -11,18 +11,19 @@ dirtslayer.github.io/Indexbook/The_Indexbook_Manual/
 dirtslayer.github.io/Indexbook?f=The_Indexbook_Manual
 
 
-2. There is a LICENSE file which applies to the entirety of the Indexbook repository.
+2. There is a LICENSE file adjacent this file which applies to the Indexbook repository
+   AND you should understand the LICENSE please
 
 3. YOU should create issues, pull requests and forks please. PR's should include 
-   addding your name to list of contributers
-
-
-
+   addding your name to list of contributors, I would be thrilled if someone made a pr
+   on this repo
 
 -->
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width">
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <title>Indexbook</title>
   <link rel="stylesheet" crossorigin="anonymous" referrerpolicy="no-referrer" 
     href="https://unpkg.com/github-markdown-css/github-markdown-light.css" >
@@ -30,33 +31,67 @@ dirtslayer.github.io/Indexbook?f=The_Indexbook_Manual
   <!-- @import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap'); -->
   
 
+
+<!--
+
+
+  display: flex;
+  align-items: center; /* Vertical alignment */
+  justify-content: center; /* Horizontal alignment */
+  height: 100vh; /* Full viewport height for demonstration */
+  -->
+
+  
   <style>
-    .outerthumb {
-      width: 200px;
-      height: 300px;
-    }
-    .thumb {
-      transform: scale(0.5);
-      // transform-origin: top left;
-      width: 400px;
-      height: 600px;
-      background-color: ghostwhite;
-      margin: 5em;
-    }
-    img[src*="#200"] {
-      width:200px;
-    }
+
+
+
+    
+ul.flow-layout {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  list-style-type: none;
+  margin: 0px 0px 30px 30px;
+}
+
+li.flow-layout {
+  display: flex;
+  align-items: left;
+  justify-content: top;
+  height: 300px;
+  flex-direction: column;
+  background-color: #f0f0f0;
+  border: 0px solid #000;
+  padding : 10 10 0 0;
+}
+    
+.outerthumb {
+  width: 200px;
+  height: 300px;
+  border: 2px solid #000;
+}
+
+.thumb {
+  transform: scale(0.5);
+  transform-origin: top left;
+  width: 400px;
+  height: 600px;
+  background-color: ghostwhite; // ghostwhiter mention
+}
+
+img[src*="#200"] {  // hack to pass image width from md using bookmarks
+  width:200px;
+}
+
   </style>
 </head>
-<body style="color: margin: 2em">
-  
-<a  id="indexmd"  href='index.md'  > index </a>
+<body ><a  id="indexmd"  href='index.md'  > index </a>
 <a  id="prev"  href=''  > prev </a>
 <a  id="next"  href=''  > next </a>
 <a  id="raw"  href=''  > raw </a>
-  
-  
-<div id="Index" class="markdown-body" ><h1><i>Welcome to Indexbook</i></h1></div>
+<div  class="markdown-body" ><h3><i>Indexbook</i></h3>
+<ul id="Index" class="flow-layout"></ul></div>
 
   
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -105,14 +140,14 @@ async function getData(f) {
       fetch(my)
         .then((response) => response.text())
         .then((text) => {
-          links += "<li><a href='./" + l + "'>" +  l.slice(0, -3).replaceAll("_"," ").split("/").pop();
+          links += "<li class='flow-layout'><a href='./" + l + "'>" +  l.slice(0, -3).replaceAll("_"," ").split("/").pop();
           links += "</a><div class=\"outerthumb\"><div class=\"thumb\">";
 
           const base = "./" + l.split("/").slice(0,-1).join("/") + "/";
           marked.use(markedBaseUrl.baseUrl('/'));
           marked.use(markedBaseUrl.baseUrl(base));
           links += marked.parse(text);
-          links += "</div> </div></li>\n";
+          links += "</div></div></li>";
           
       }).then(()=>{
         myArticle.innerHTML = links;      
