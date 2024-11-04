@@ -44,8 +44,9 @@ dirtslayer.github.io/Indexbook?f=The_Indexbook_Manual
   
   <style>
 
-
-
+body {
+  margin: 0;
+}
     
 ul.flow-layout {
   display: flex;
@@ -53,25 +54,24 @@ ul.flow-layout {
   flex-direction: row;
   list-style-type: none;
   gap: 5em;
-  background-color: cyan;
+  background-color: white;
 
-  transform: scale(0.5,0.5);
-  transform-origin: top left;
+ // transform: scale(0.5,0.5);
+  // transform-origin: top left;
 
-  width : 150%;
+  width : 190%;
 }
 
 li.flow-layout {
   display: flex;
   align-items: left;
-  justify-content: top;
   
   flex-direction: column;
   background-color: grey;
 
-  width: 425px;
-  height: 600px;
+  height: 624px;
 
+  margin: 0px;
 }
     
 .thumb {
@@ -79,7 +79,7 @@ li.flow-layout {
   width: 425px;
   height: 600px;
   background-color: ghostwhite; // ghostwhiter mention
-  border: 2px solid #000;
+  border: 4px solid black;
   overflow: hidden;
 }
 
@@ -93,7 +93,7 @@ img[src*="#200"] {  // hack to pass image width from md using bookmarks
 <a  id="prev"  href=''  > prev </a>
 <a  id="next"  href=''  > next  </a>
 <a  id="raw"  href=''  > raw </a>
-<div  class="markdown-body" ><h3><i>Indexbook</i></h3>
+<div><h3><i>Indexbook</i></h3>
 <div id="Index"></div>
 </div>
 
@@ -137,9 +137,20 @@ async function handleaclick(f) {
       p.forEach( (pt) => { 
         indexul += "<li class=\"flow-layout\" >";
         // console.log('\n******\n' + include_lines[i] + '\n=======\n' + pt);
-        indexul += "<a href=\"" + include_lines[i] + "\">" + include_lines[i] + "</a>";
-        indexul += "<div class=\"thumb\">" + pt + "</div>";
-        indexul += "</li>";
+        indexul += "<a href=\"" + include_lines[i] + "\">" + include_lines[i].trim() + "</a>";
+        indexul += "<div class=\"thumb markdown-body\">";
+
+
+
+const base = "./" + include_lines[i].split("/").slice(0,-1).join("/") + "/";
+marked.use(markedBaseUrl.baseUrl('/'));
+marked.use(markedBaseUrl.baseUrl(base));
+indexul += marked.parse(pt);
+        
+        
+        
+        
+        indexul += "</div></li>";
         i++;
       });  
       indexul += "</ul>";
