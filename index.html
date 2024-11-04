@@ -27,21 +27,7 @@ dirtslayer.github.io/Indexbook?f=The_Indexbook_Manual
   <title>Indexbook</title>
   <link rel="stylesheet" crossorigin="anonymous" referrerpolicy="no-referrer" 
     href="https://unpkg.com/github-markdown-css/github-markdown-light.css" >
-  
-  <!-- @import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap'); -->
-  
 
-
-<!--
-
-
-  display: flex;
-  align-items: center; /* Vertical alignment */
-  justify-content: center; /* Horizontal alignment */
-  height: 100vh; /* Full viewport height for demonstration */
-  -->
-
-  
   <style>
 
 body {
@@ -56,17 +42,17 @@ ul.flow-layout {
   gap: 5em;
   background-color: white;
 
-   transform: scale(0.5,0.5);
+   transform: scale(0.33,0.33);
    transform-origin: top left;
 
-  width : 190%;
+  width : 290%;
 }
 
 li.flow-layout {
   display: flex;
   flex-direction: column;
   background-color: grey;
-  height: 620px;
+  height: 31cm; 
   margin: 0px;
 
   border: 2px solid grey;
@@ -76,11 +62,9 @@ li.flow-layout {
 }
     
 .thumb {
-  
-  width: 425px;
-  height: 600px;
+  width: 21cm; 
+  height: 30cm;
   background-color: ghostwhite; // ghostwhiter mention
-  
   overflow: hidden;
   padding: 20px;
 }
@@ -89,6 +73,43 @@ img[src*="#200"] {  // hack to pass image width from md using bookmarks
   width:200px;
 }
 
+/*
+    create overlay link for thumb page
+    https://stackoverflow.com/a/46707009
+*/
+
+.block {
+  background-color:#dedede;
+  position:relative;
+  
+}
+
+.block .overlay {
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  right:0;
+}
+
+.block .inner {
+  position:relative;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.block .inner a {
+  pointer-events: all;
+  position:relative;
+}
+
+a:hover {
+  color: green;
+}
+
+
+
+    
   </style>
 </head>
 <body ><a  href='index_include.md'  > index </a>
@@ -137,10 +158,10 @@ async function handleaclick(f) {
       let i = 0;
       let indexul = "<ul class=\"flow-layout\">"; 
       p.forEach( (pt) => { 
-        indexul += "<li class=\"flow-layout\" >";
+        indexul += "<li class=\"flow-layout block\" >";
         // console.log('\n******\n' + include_lines[i] + '\n=======\n' + pt);
-        indexul += "<a href=\"" + include_lines[i] + "\">" + include_lines[i].trim() + "</a>";
-        indexul += "<div class=\"markdown-body thumb\">";
+        indexul += "<a class=\"overlay\" href=\"" + include_lines[i] + "\">" + include_lines[i].trim() + "</a>";
+        indexul += "<div class=\"markdown-body thumb inner\">";
 
 
 
