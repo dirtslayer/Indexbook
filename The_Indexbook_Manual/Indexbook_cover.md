@@ -1,6 +1,5 @@
-<!--
 ![cover](./media/cover.jpg)
--->
+
 # Indexbook - Publishing Kit
 Create beautiful books using markdown.
 
