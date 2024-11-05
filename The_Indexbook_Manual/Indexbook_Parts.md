@@ -1,5 +1,14 @@
 # Indexbook Parts
 
+<!--toc:start-->
+- [Indexbook Parts](#indexbook-parts)
+  - [index.html](#indexhtml)
+  - [index_include.md](#indexincludemd)
+  - [Markdown Files](#markdown-files)
+  - [Journal Module](#journal-module)
+  - [Leverage Browser Features](#leverage-browser-features)
+<!--toc:end-->
+
 ## index.html
 
 - the root document is a single page application that routes md files
