@@ -16,13 +16,25 @@
 ## Markdown Files
 
 - Each chapter is in a folder with md files
-- This repository is an Indexbook sample:
-    - this manual
-    - example personal journal
-    - krita for notes
+- This repository is an Indexbook sample with the following chapters
+    - the indexbook manual
+    - personal journal
+    - my notes
         
 ## Journal Module
 - templated using minimal nushell script
 - date based entry name creation
 
-> Hint: Use [ctrl scrollwheel] [ctrl +] and [ctrl -] to scale page thumbnails
+## Leverage Browser Features
+
+> Zoom:  [ctrl scrollwheel] [ctrl +] and [ctrl -] 
+
+> Search: [ctrl f]
+
+> Printing: TODO 
+- gen pdf
+- print from browser using media query to shut off 
+  page border 
+- page breaks
+- browser print dialog howto, using 2 columns and 
+  landscape page
