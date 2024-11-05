@@ -15,32 +15,35 @@
 
 ## Inspiration
 
-info
-- the original supercharged man page browser
+### man info less is more
+- linux
 
-writebook 
+### writebook 
 - dhh's ruby on rails app for publishing md, along with
   the primeageans dhh is right about everything vlog
 
-logseq 
+### logseq 
 - a knowledge management system that uses md plus 
   front-matter
 
-nushell
+### nushell
 - modern data centric shell scripting languge
 
-ghostwriter
+### ghostwriter
 - a native md editor with preview and pdf export
 
-okular
-- working with md to pdf
+### krita
+- graphics program able to mimic pen, pencil and paper
+
+### chrome dev tools
+- ctrl+shift+i, attach source, allow pasting, esc console
+- disable caching on network tab
+- inspect the shadow dom at any breakpoint with element inspector
+- use element inspector, scroll the panel to see where 
+  css values are comming from
+- test on different size devices
+- disable all your extensions to only get your warnings
+- there is no file menu, must use ctrl-s to save
+- no build, live edit
+- right click on refresh button to hard reload and empty cache
  
-krita
-- the best graphics program able to mimic pen, pencil
-  and paper
-
-chrome dev tools
-- an ide inside the browser? hell ya
-   - vi was a workaround that is all please no war
-
-
