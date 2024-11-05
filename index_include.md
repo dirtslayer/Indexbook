@@ -4,6 +4,7 @@ The_Indexbook_Manual/Indexbook_Parts.md
 The_Indexbook_Manual/How_to_Indexbook.md
 The_Indexbook_Manual/project_todo.md
 blank.md
+Notes/Krita_for_Notes.md
 2024_Journal/cover.md
 2024_Journal/2024_05_10.md
 2024_Journal/2024_05_09.md
