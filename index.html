@@ -33,7 +33,15 @@ dirtslayer.github.io/Indexbook?f=The_Indexbook_Manual
 body {
   margin: 0;
 }
-    
+
+
+img[src*="#center"] {
+  width: 300px; /* set width if needed */
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
 ul.flow-layout {
   display: flex;
   flex-wrap: wrap;
@@ -41,10 +49,8 @@ ul.flow-layout {
   list-style-type: none;
   gap: 5em;
   background-color: white;
-
-   transform: scale(0.33,0.33);
-   transform-origin: top left;
-
+  transform: scale(0.33,0.33);
+  transform-origin: top left;
   width : 290%;
 }
 
@@ -64,12 +70,12 @@ li.flow-layout {
 .thumb {
   width: 21cm; 
   height: 30cm;
-  background-color: ghostwhite; // ghostwhiter mention
+  background-color: ghostwhite;
   overflow: hidden;
-  padding: 20px;
+  padding: 2cm;
 }
 
-img[src*="#200"] {  // hack to pass image width from md using bookmarks
+img[src*="#200"] {  // pass image width from md using bookmarks
   width:200px;
 }
 

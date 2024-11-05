@@ -1,16 +1,30 @@
 # How to use Indexbook
 
 1. Copy index.html into your document root
-2. Create index.md with a list of markdown files in the order you want them
-3. Serve
+2. Create index_include.md with a list of markdown files
+3. Serve with http server or place in pages folder of your repo.
 
-### Example Project Structure
+## Example index_include.md
 
-- there is only one toplevel index.md, that may have multiple books
-- a folder is a book
-- all the markdown files inside the book are the pages
-- the index.md specifies the page order 
+```
+The_Indexbook_Manual/Cover.md
+The_Indexbook_Manual/Why_Indexbook.md
+The_Indexbook_Manual/Indexbook_Parts.md
+The_Indexbook_Manual/How_to_Indexbook.md
+The_Indexbook_Manual/project_todo.md
+```
 
-### Example index.md
+## Using nushell to generate index_include.md
 
-### Generating index.md with nushell
+![terminal screenshot](./media/screenshot-2024-11-05-06-27-18.png)
+
+```nushell
+ls The_Indexbook_Manual/ 2024_Journal/ 
+    | where type == file
+    | get name | sort -r | to text 
+    | save -f index_include.md
+```
+
+## Generating PDF
+
+- [ ] TODO Generate PDF

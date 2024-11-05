@@ -1,4 +1,6 @@
-# Index TODO's
+# Indexbook TODO's
 
 - [ ] rewrite urls so back button works
-- [ ] thumbnails of pages
+- [ ] generate pdf
+- [ ] journal stuff
+ 
