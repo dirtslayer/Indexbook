@@ -43,7 +43,7 @@
     - personal journal sample
     
 - You can use html inside a markdown, but there is one important caveat:
-
+:
 > Anything inside a html div will not be processed by markedjs's url rewriter.
   As a result urls inside html blocks need to be relative to index.html, not
   the folder they are in. For example, the cover of The_Indexbook_Manual uses
