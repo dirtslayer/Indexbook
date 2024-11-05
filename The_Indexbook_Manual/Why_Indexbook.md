@@ -10,7 +10,7 @@ Order is created by an index.
 ## Requirements
 
 Get out of the way of disconnected tools:
-- editors like ghostwriter
+- editors like ghostwriter, kate
 - graphics programs like krita
 - version control agnostic
 - easily searchable
@@ -30,28 +30,15 @@ Going back to other attempts to organize my life, I drew on logseq,
 which also used markdown and an org-mode like template system.
 
 As I sit here writing this, I am inside a georgeous, responsive app:
-Ghostwriter, this is where I want to write.
+Ghostwriter, this is where I want to write for now.
 
 Pen and paper are still hard to beat for feel, but Krita is as close
-as you'll find. 
+as you'll find.
 
-Just like native apps, Indexbook hopes to ispire by getting out of your way.
+Just like native apps, Indexbook hopes to inspire by getting out of your way.
 
 Finally, I need to shout from the top of a mountain 
 
 > Chrome Dev Tools!!!! 
-
-Notes on Chrome Dev Tools
-=========================
-- ctrl+shift+i, add folder, allow access, esc console
-- disable caching on network tab
-- inspect the shadow dom (elements tab) with element inspector
-  (dotted square with arrow inside)
-- use element inspector, scroll the panel to see where 
-  css values are comming from
-- test on different size devices with device toolbar
-- disable all your extensions to only get your own warnings
-- there is no file menu, must use ctrl-s to save
-- right click on refresh button to hard reload and empty cache
 
 [1]: https://youtu.be/mTa2d3OLXhg?si=oj2T5Xo1qyXMD8Pm
