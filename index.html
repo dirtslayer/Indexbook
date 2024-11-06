@@ -113,7 +113,6 @@ a:hover {
   color: green;
 }
 
-
 .marked-rendered {
    padding: 1cm; 
 }
@@ -129,11 +128,9 @@ a:hover {
   <div class ="markdown-body" id="Index"></div>
 </div>
 
-  
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked-base-url"></script>
 <script>
-
 
 function preventDefaultLinks () {
   const myLinks = document.querySelectorAll("a");
@@ -149,6 +146,17 @@ function preventDefaultLinks () {
 
 preventDefaultLinks();
 
+function fname(path) {
+  const parts = path.split("/");
+  const filename = parts.pop();  
+  let result = "";
+  if ( filename.endsWith(".md") ) {
+    result = filename.slice(0,-3);
+  }
+  result = result.replaceAll("_"," ");
+  return result;
+}
+  
 async function handleaclick(f) {
   if ( f === "index_include.md" ) {
     let contentsul = "<ul class=\"contents\">";
@@ -156,9 +164,20 @@ async function handleaclick(f) {
     const include_file = await fetch(f).then((response) => response.text());
     const include_lines = include_file.split(/\r?\n/);
 
+    let last_chapter = ""; 
+    let new_chapter = "";
+    
     // build contents
     include_lines.forEach((line) => {
-       contentsul += "<li>" + line + "</line>";
+      if (line != 'blank.md') {
+        new_chapter = line.split("/").slice(0,-1).join("/");
+        if ( new_chapter != last_chapter) {
+          contentsul += "</ul><h3>" + new_chapter + "</h3><ul>";
+          last_chapter = new_chapter;
+        }
+        
+        contentsul += "<li><a href=\"" + line + "\">" + fname(line) + "<a></li>";
+      } 
     });
 
     contentsul += "</ul>";
