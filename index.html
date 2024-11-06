@@ -114,7 +114,9 @@ a:hover {
 }
 
 
-
+.marked-rendered {
+   padding: 1cm; 
+}
     
   </style>
 </head>
@@ -122,8 +124,9 @@ a:hover {
 <a  id="prev"  href=''  > prev </a>
 <a  id="next"  href=''  > next  </a>
 <a  id="raw"  href=''  > raw </a>
-<div><h3><i>Indexbook</i></h3>
-<div id="Index"></div>
+<div>
+  <h3><i>Indexbook</i></h3>
+  <div class ="markdown-body" id="Index"></div>
 </div>
 
   
@@ -147,9 +150,20 @@ function preventDefaultLinks () {
 preventDefaultLinks();
 
 async function handleaclick(f) {
-  if ( f === 'index_include.md' ) {
+  if ( f === "index_include.md" ) {
+    let contentsul = "<ul class=\"contents\">";
+    
     const include_file = await fetch(f).then((response) => response.text());
     const include_lines = include_file.split(/\r?\n/);
+
+    // build contents
+    include_lines.forEach((line) => {
+       contentsul += "<li>" + line + "</line>";
+    });
+
+    contentsul += "</ul>";
+
+    
     const include_prom = [];
     include_lines.forEach((line) => {
        include_prom.push(fetch(line));
@@ -168,62 +182,39 @@ async function handleaclick(f) {
         // console.log('\n******\n' + include_lines[i] + '\n=======\n' + pt);
         indexul += "<a class=\"overlay\" href=\"" + include_lines[i] + "\">" + include_lines[i].trim() + "</a>";
         indexul += "<div class=\"markdown-body thumb inner\">";
-
-
-
-const base = "./" + include_lines[i].split("/").slice(0,-1).join("/") + "/";
-marked.use(markedBaseUrl.baseUrl('/'));
-marked.use(markedBaseUrl.baseUrl(base));
-indexul += marked.parse(pt);
-        
-     
+        const base = "./" + include_lines[i].split("/").slice(0,-1).join("/") + "/";
+        marked.use(markedBaseUrl.baseUrl('/'));
+        marked.use(markedBaseUrl.baseUrl(base));
+        indexul += marked.parse(pt);
         indexul += "</div></li>";
         i++;
       });  
       indexul += "</ul>";
       const indexdiv = document.querySelector("#Index");
-      indexdiv.innerHTML = indexul;      
-      // preventDefaultLinks();      
+      indexdiv.innerHTML = contentsul +indexul;      
+      preventDefaultLinks();      
     });
         
+  } else {
+    // not the index_include
+    const myRequest = new Request(`${f}`);
+    fetch(myRequest)
+    .then((response) => response.text())
+    .then((text) => {
+        const myArticle = document.querySelector("#Index");
+        marked.use(markedBaseUrl.baseUrl('/'));
+        const base = "./" + f.split("/").slice(0,-1).join("/") + "/";
+        marked.use(markedBaseUrl.baseUrl(base));
+        const res = "<div class=\"marked-rendered\">" + marked.parse(text) + "</div>";
+        myArticle.innerHTML = res;
+    });
   }
 }
 
-
-/*    
-.then((response) => response.text())
-.then((text) => {
-links += "<li class='flow-layout'><a href='./" + l + "'>" +  l.slice(0, -3).replaceAll("_"," ").split("/").pop();
-links += "</a><div class=\"outerthumb\"><div class=\"thumb\">";
-
-const base = "./" + l.split("/").slice(0,-1).join("/") + "/";
-marked.use(markedBaseUrl.baseUrl('/'));
-marked.use(markedBaseUrl.baseUrl(base));
-links += marked.parse(text);
-links += "</div></div></li>";
-
-}).then(()=>{
-  
-});
-
-
-
-});
-
-
-});
+/*
   }
   else {
-    const myRequest = new Request(`${f}`);
-    fetch(myRequest)
-      .then((response) => response.text())
-      .then((text) => {
-        const myArticle = document.querySelector("#Index");
-        marked.use(markedBaseUrl.baseUrl('/'));
-        const base = "." + f.split("/").slice(0,-1).join("/") + "/";
-        marked.use(markedBaseUrl.baseUrl(base));
-        myArticle.innerHTML = marked.parse(text);
-      });
+    
   }
 }
 */
