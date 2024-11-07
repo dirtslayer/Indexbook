@@ -129,31 +129,49 @@ a:hover {
 <script>
 
 const deploy_url = window.location.href;
-  
+// history.pushState({ page: 1 }, "title 1", "?page=1");
+
+// onpopstate is back - mdn PopStateEvent
+addEventListener("popstate", (event) => {
+  console.log("State received: ", event.state);
+  if (event.state) { 
+    handleaclick(event.state.href);
+  } else {
+    handleaclick("index_include.md");
+  }
+  window.scroll({ top: 0, left: 0 });
+});
+
+// Now push something on the stack 
+  /*
+history.pushState({ name: "Example" }, "pushState example", "page1.html");
+history.pushState(
+  { name: "Another example" },
+  "pushState example",
+  "page1.html",
+);
+  */
 function preventDefaultLinks () {
   const myLinks = document.querySelectorAll("a");
   for (const link of myLinks) {
     link.onclick = (e) => {
-      const href = e.target.getAttribute("href");
+
+      const state = { href: e.target.getAttribute("href") };
+      history.pushState(state, state.href, "?href=" + state.href  );
+      
+      
       // do not follow links
       e.preventDefault();
-      // save the href
-      window.history.pushState(href, null, "");
+      
       // custom
-      handleaclick(href);
+      handleaclick(state.href);
     };
   }
 }
 
 preventDefaultLinks();
 
-// onpopstate is back
-window.onpopstate = async function (event) {
-  if (event.state) { 
-    await handleaclick(event.state);
-    window.scroll({ top: 0, left: 0 });
-  }
-};
+
   
 function fname(path) {
   const parts = path.split("/");
