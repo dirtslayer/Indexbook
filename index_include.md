@@ -1,3 +1,4 @@
+README.md
 Notes/Krita_for_Notes.md
 blank.md
 The_Indexbook_Manual/Cover.md

@@ -7,6 +7,7 @@
 <img src="./The_Indexbook_Manual/media/ari.png" width="300px">
 <h1>The Indexbook Manual</h1>
 <h3><i>Author using markdown</i></h3>
+<a href="https://github.com/dirtslayer/Indexbook">Fork it on Github!</a>
 </div>
 
 <!-- 

@@ -40,7 +40,6 @@ ul.flow-layout {
   flex-direction: row;
   list-style-type: none;
   gap: 5em;
-  background-color: white;
   transform: scale(0.33,0.33);
   transform-origin: top left;
   width : 290%;
@@ -106,7 +105,8 @@ a:hover {
 }
 
 .marked-rendered {
-   padding: 1cm; 
+   padding: 1cm;
+   width: 21cm; 
 }
     
   </style>
@@ -117,7 +117,7 @@ a:hover {
 <a  id="raw"  href=''  > raw </a>
 <div>
   <h3><i>Indexbook</i></h3>
-  <div class ="markdown-body" id="Index"></div>
+  <div id="Index"></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -231,8 +231,8 @@ async function handleaclick(f) {
     .then((text) => {
         const myArticle = document.querySelector("#Index");
         
-        
-        const res = "<div class=\"marked-rendered\">" + marked.parse(text) + "</div>";
+        //class ="markdown-body"
+        const res = "<div class=\"markdown-body marked-rendered\">" + marked.parse(text) + "</div>";
         myArticle.innerHTML = res;
         window.scroll({ top: 0, left: 0, behavior: 'smooth' });
         
