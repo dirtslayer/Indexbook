@@ -133,7 +133,6 @@ const deploy_url = window.location.href;
 
 // onpopstate is back - mdn PopStateEvent
 addEventListener("popstate", (event) => {
-  console.log("State received: ", event.state);
   if (event.state) { 
     handleaclick(event.state.href);
   } else {
@@ -142,15 +141,7 @@ addEventListener("popstate", (event) => {
   window.scroll({ top: 0, left: 0 });
 });
 
-// Now push something on the stack 
-  /*
-history.pushState({ name: "Example" }, "pushState example", "page1.html");
-history.pushState(
-  { name: "Another example" },
-  "pushState example",
-  "page1.html",
-);
-  */
+
 function preventDefaultLinks () {
   const myLinks = document.querySelectorAll("a");
   for (const link of myLinks) {
@@ -158,8 +149,6 @@ function preventDefaultLinks () {
 
       const state = { href: e.target.getAttribute("href") };
       history.pushState(state, state.href, "?href=" + state.href  );
-      
-      
       // do not follow links
       e.preventDefault();
       
@@ -170,9 +159,7 @@ function preventDefaultLinks () {
 }
 
 preventDefaultLinks();
-
-
-  
+ 
 function fname(path) {
   const parts = path.split("/");
   const filename = parts.pop();  
@@ -209,7 +196,6 @@ async function handleaclick(f) {
     });
 
     contentsul += "</ul>";
-
     
     const include_prom = [];
     include_lines.forEach((line) => {
@@ -264,13 +250,7 @@ async function handleaclick(f) {
   }
 }
 
-/*
-  }
-  else {
-    
-  }
-}
-*/
+
 </script>
   
 </body>
