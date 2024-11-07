@@ -132,6 +132,8 @@ a:hover {
 <script src="https://cdn.jsdelivr.net/npm/marked-base-url"></script>
 <script>
 
+const deploy_url = window.location.href;
+  
 function preventDefaultLinks () {
   const myLinks = document.querySelectorAll("a");
   for (const link of myLinks) {
@@ -203,9 +205,8 @@ async function handleaclick(f) {
         indexul += "<div class=\"markdown-body thumb inner\">";
         const base = "./" + include_lines[i].split("/").slice(0,-1).join("/") + "/";
        // marked.use(markedBaseUrl.baseUrl('/'));
-        marked.use(markedBaseUrl.baseUrl(base));
+        marked.use(markedBaseUrl.baseUrl(deploy_url + base));
         indexul += marked.parse(pt);
-        marked.use(markedBaseUrl.baseUrl("/"));
         indexul += "</div></li>";
         i++;
       });  
@@ -219,7 +220,7 @@ async function handleaclick(f) {
 
    
      const base =  f.split("/").slice(0,-1).join("/") + "/";
-     marked.use(markedBaseUrl.baseUrl(base));
+     marked.use(markedBaseUrl.baseUrl(deploy_url + base));
     
     // not the index_include
     const myRequest = new Request(`${f}`);
@@ -231,7 +232,7 @@ async function handleaclick(f) {
         
         const res = "<div class=\"marked-rendered\">" + marked.parse(text) + "</div>";
         myArticle.innerHTML = res;
-        marked.use(markedBaseUrl.baseUrl("/"));
+        
     });
   }
 }
