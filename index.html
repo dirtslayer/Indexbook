@@ -115,11 +115,10 @@ a:hover {
     
   </style>
 </head>
-<body ><a  href='index_include.md'  > index </a>
-<a  id="prev"  href=''  > prev </a>
-<a  id="next"  href=''  > next  </a>
-<a  id="raw"  href=''  > raw </a>
+<body >
+<div class="onecmtall">  
 <h3><i>Indexbook</i></h3>
+</div>
 <div id="Index"></div>
 <div class="onecmtall"></div>
 
@@ -148,9 +147,10 @@ function preventDefaultLinks () {
 preventDefaultLinks();
 
 // onpopstate is back
-window.onpopstate = function (event) {
+window.onpopstate = async function (event) {
   if (event.state) { 
-    handleaclick(event.state); 
+    await handleaclick(event.state);
+    window.scroll({ top: 0, left: 0 });
   }
 };
   
@@ -164,7 +164,8 @@ function fname(path) {
   result = result.replaceAll("_"," ");
   return result;
 }
-  
+
+handleaclick("index_include.md");
 async function handleaclick(f) {
   if ( f === "index_include.md" ) {
     let contentsul = "<ul class=\"contents\">";
@@ -238,7 +239,7 @@ async function handleaclick(f) {
         //class ="markdown-body"
         const res = "<div class=\"markdown-body marked-rendered\">" + marked.parse(text) + "</div>";
         myArticle.innerHTML = res;
-        window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+        window.scroll({ top: 0, left: 0 });
         
     });
   }
