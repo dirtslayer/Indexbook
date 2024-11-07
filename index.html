@@ -202,9 +202,10 @@ async function handleaclick(f) {
         indexul += "<a class=\"overlay\" href=\"" + include_lines[i] + "\">" + include_lines[i].trim() + "</a>";
         indexul += "<div class=\"markdown-body thumb inner\">";
         const base = "./" + include_lines[i].split("/").slice(0,-1).join("/") + "/";
-        marked.use(markedBaseUrl.baseUrl('/'));
+       // marked.use(markedBaseUrl.baseUrl('/'));
         marked.use(markedBaseUrl.baseUrl(base));
         indexul += marked.parse(pt);
+        marked.use(markedBaseUrl.baseUrl("/"));
         indexul += "</div></li>";
         i++;
       });  
@@ -215,17 +216,22 @@ async function handleaclick(f) {
     });
         
   } else {
+
+   
+     const base =  f.split("/").slice(0,-1).join("/") + "/";
+     marked.use(markedBaseUrl.baseUrl(base));
+    
     // not the index_include
     const myRequest = new Request(`${f}`);
     fetch(myRequest)
     .then((response) => response.text())
     .then((text) => {
         const myArticle = document.querySelector("#Index");
-        marked.use(markedBaseUrl.baseUrl('/'));
-        const base = "./" + f.split("/").slice(0,-1).join("/") + "/";
-        marked.use(markedBaseUrl.baseUrl(base));
+        
+        
         const res = "<div class=\"marked-rendered\">" + marked.parse(text) + "</div>";
         myArticle.innerHTML = res;
+        marked.use(markedBaseUrl.baseUrl("/"));
     });
   }
 }
