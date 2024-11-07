@@ -1,23 +1,14 @@
 <!doctype html>
 <!--
+Welcome to the Indexbook
+Create books using markdown
 
-Welcome to the Indexbook Publishing Kit.
-Create beautiful books using markdown.
-
-1. Link to Indexbook Manual
-
-want:
-dirtslayer.github.io/Indexbook/The_Indexbook_Manual/
-dirtslayer.github.io/Indexbook?f=The_Indexbook_Manual
-
-
+1. Link to Indexbook
+```md
+[Indexbook](dirtslayer.github.io/Indexbook/)
+```
 2. There is a LICENSE file adjacent this file which applies to the Indexbook repository
    AND you should understand the LICENSE please
-
-3. YOU should create issues, pull requests and forks please. PR's should include 
-   addding your name to list of contributors, I would be thrilled if someone made a pr
-   on this repo
-
 -->
 <html lang="en">
 <head>
@@ -31,7 +22,8 @@ dirtslayer.github.io/Indexbook?f=The_Indexbook_Manual
   <style>
 
 body {
-  margin: 0;
+  margin: 0px 0px 0px 1em;
+  background: blanchedalmond;
 }
 
 
@@ -138,16 +130,26 @@ function preventDefaultLinks () {
   const myLinks = document.querySelectorAll("a");
   for (const link of myLinks) {
     link.onclick = (e) => {
+      const href = e.target.getAttribute("href");
+      // do not follow links
       e.preventDefault();
-      handleaclick(
-        e.target.getAttribute("href")
-      );
+      // save the href
+      window.history.pushState(href, null, "");
+      // custom
+      handleaclick(href);
     };
   }
 }
 
 preventDefaultLinks();
 
+// onpopstate is back
+window.onpopstate = function (event) {
+  if (event.state) { 
+    handleaclick(event.state); 
+  }
+};
+  
 function fname(path) {
   const parts = path.split("/");
   const filename = parts.pop();  
@@ -174,7 +176,7 @@ async function handleaclick(f) {
       if (line != 'blank.md') {
         new_chapter = line.split("/").slice(0,-1).join("/");
         if ( new_chapter != last_chapter) {
-          contentsul += "</ul><h3>" + new_chapter + "</h3><ul>";
+          contentsul += "</ul><h3>" + new_chapter.replaceAll("_"," ") + "</h3><ul>";
           last_chapter = new_chapter;
         }
         
@@ -232,6 +234,7 @@ async function handleaclick(f) {
         
         const res = "<div class=\"marked-rendered\">" + marked.parse(text) + "</div>";
         myArticle.innerHTML = res;
+        window.scroll({ top: 0, left: 0, behavior: 'smooth' });
         
     });
   }
