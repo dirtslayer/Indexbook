@@ -1,5 +1,6 @@
 README.md
 Notes/Krita_for_Notes.md
+2024_Journal/2024_11_07.md
 blank.md
 The_Indexbook_Manual/Cover.md
 The_Indexbook_Manual/Why_Indexbook.md
